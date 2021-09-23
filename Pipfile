@@ -8,7 +8,6 @@ verify_ssl = true
 [packages]
 django = "*"
 django-extensions = "*"
-django-adminlte3 = "*"
 
 [requires]
 python_version = "3.8"
