@@ -1,1 +1,1 @@
-web: gunicorn vandog.wsgi
+web: gunicorn --pythonpath src vandog.wsgi
