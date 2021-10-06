@@ -109,5 +109,10 @@ USE_TZ = True
 
 STATIC_URL = config('STATIC_URL', default='/static/')
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'public', 'static'))
+STATICFILES_DIRS = [
+    os.path.abspath(os.path.join(BASE_DIR, 'public', 'static')),
+]
 
 FORCE_SCRIPT_NAME = config('FORCE_SCRIPT_NAME', default='')
+
+USE_X_FORWARDED_HOST = True
