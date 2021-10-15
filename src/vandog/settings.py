@@ -108,7 +108,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = config('STATIC_URL', default='/static/')
-STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'public', 'static'))
+# STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'public', 'static'))
 STATICFILES_DIRS = [
     os.path.abspath(os.path.join(BASE_DIR, 'public', 'static')),
 ]
