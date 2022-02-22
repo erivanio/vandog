@@ -10,7 +10,7 @@ class TelefoneInline(admin.TabularInline):
 
 class PetInline(admin.StackedInline):
     model = Pet
-    extra = 1
+    extra = 0
 
 
 @admin.register(Cliente)
