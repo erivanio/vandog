@@ -3,9 +3,12 @@ from django.db import models
 
 class Cliente(models.Model):
     nome = models.CharField(max_length=200)
+    cpf = models.CharField('CPF', max_length=14, default='000.000.000-00')
     endereco = models.CharField('endereço', max_length=200)
     bairro = models.CharField(max_length=200)
     numero = models.CharField('número', max_length=200, null=True, blank=True)
+    arquivos = models.URLField('arquivos', null=True, blank=True,
+        help_text='Endereço para pasta de arquivos')
 
     class Meta:
         verbose_name = 'Cliente'
@@ -41,8 +44,11 @@ class Pet(models.Model):
     raca = models.CharField('raça', max_length=200, null=True, blank=True)
     porte = models.CharField(
         max_length=1, choices=PORTE_CHOICES, default='p')
+    peso = models.FloatField(help_text='Peso em Kg', default='0.0')
     data_nascimento = models.DateField(
         'data de nascimento', null=True, blank=True)
+    alergias = models.TextField(null=True, blank=True)
+    observacoes = models.TextField('observações', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Pet'

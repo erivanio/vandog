@@ -15,12 +15,12 @@ class PetInline(admin.StackedInline):
 
 @admin.register(Cliente)
 class ClienteAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nome', 'endereco', 'bairro', 'numero')
+    list_display = ('nome', 'endereco', 'bairro', 'numero')
     inlines = [TelefoneInline, PetInline]
 
     fieldsets = (
-        (None, {
-            'fields': ('nome',)
+        ('Dados Pessoais', {
+            'fields': ('nome', 'cpf', 'arquivos')
         }),
         ('Endereço', {
             'fields': ('endereco', 'numero', 'bairro')
@@ -30,11 +30,11 @@ class ClienteAdmin(admin.ModelAdmin):
 
 @admin.register(Telefone)
 class TelefoneAdmin(admin.ModelAdmin):
-    list_display = ('id', 'numero', 'whatsapp', 'cliente')
+    list_display = ('numero', 'whatsapp', 'cliente')
     list_filter = ('whatsapp', 'cliente')
 
 
 @admin.register(Pet)
 class PetAdmin(admin.ModelAdmin):
-    list_display = ('id', 'dono', 'nome', 'raca', 'porte', 'data_nascimento')
+    list_display = ('dono', 'nome', 'raca', 'porte', 'data_nascimento')
     list_filter = ('dono', 'porte')
