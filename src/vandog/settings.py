@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'apps.financeiro',
 
     'django_extensions',
+    'rangefilter',
 ]
 
 MIDDLEWARE = [
