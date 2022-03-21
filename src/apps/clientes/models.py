@@ -55,4 +55,4 @@ class Pet(models.Model):
         verbose_name_plural = 'Pets'
 
     def __str__(self):
-        return self.nome
+        return '%s(Dono: %s)' % (self.nome, self.dono.nome)

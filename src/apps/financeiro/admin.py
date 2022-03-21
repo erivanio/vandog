@@ -40,11 +40,10 @@ class ReceitaAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'modified')
     list_filter = (
         ('data_servico', DateTimeRangeFilter),
-        'plano',
         'servico',
         'item_estoque',
     )
-    search_fields = ['cliente__nome']
+    search_fields = ['cliente__nome', 'pets__nome']
 
     fieldsets = (
         ('Cliente', {
@@ -54,7 +53,7 @@ class ReceitaAdmin(admin.ModelAdmin):
             'fields': ('pagamento', 'valor')
         }),
         ('Tipo da receita', {
-            'fields': ('plano', 'servico', 'item_estoque', 'qtd_item')
+            'fields': ('plano', 'aula', 'servico', 'item_estoque', 'qtd_item')
         }),
         (None, {
             'fields': ('observacao', 'data_servico')
@@ -98,7 +97,6 @@ class FuncionarioAdmin(admin.ModelAdmin):
             'fields': ('created', 'modified')
         }),
     )
-
 
 
 @admin.register(Categoria)

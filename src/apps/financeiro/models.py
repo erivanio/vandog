@@ -47,32 +47,21 @@ class Receita(TimestampedMixin):
         ('transferencia', 'Transferência'),
         ('outros', 'Outros'),
     ]
-    PLANOS_CHOICES = [
-        ('', 'Escolha um plano'),
-        ('meio1x', 'Daycare meio periodo 1x por semana'),
-        ('meio2x', 'Daycare meio periodo 2x por semana'),
-        ('meio3x', 'Daycare meio periodo 3x por semana'),
-        ('meio4x', 'Daycare meio periodo 4x por semana'),
-        ('meio5x', 'Daycare meio periodo 5x por semana'),
-        ('integral1x', 'Daycare integral 1x por semana'),
-        ('integral2x', 'Daycare integral 2x por semana'),
-        ('integral3x', 'Daycare integral 3x por semana'),
-        ('integral4x', 'Daycare integral 4x por semana'),
-        ('integral5x', 'Daycare integral 5x por semana'),
-    ]
     servico = models.CharField('tipo de serviço', max_length=50,
         choices=TIPO_SERVICO_CHOICES, null=True, blank=True)
-    plano = models.CharField('plano', max_length=50, choices=PLANOS_CHOICES,
+    plano = models.ForeignKey('planos.Plano', on_delete=models.PROTECT,
+        null=True, blank=True)
+    aula = models.ForeignKey('planos.Aula', on_delete=models.PROTECT,
         null=True, blank=True)
     item_estoque = models.ForeignKey('Estoque', on_delete=models.PROTECT,
         null=True, blank=True)
     qtd_item = models.IntegerField('Quantidade de itens', default=0,
         help_text="Referente aos itens em estoque que foram vendidos")
     cliente = models.ForeignKey('clientes.Cliente', on_delete=models.PROTECT)
-    pets = models.ManyToManyField('clientes.Pet', null=True, blank=True)
+    pets = models.ManyToManyField('clientes.Pet')
     observacao = models.TextField('observação', null=True, blank=True)
     data_servico = models.DateTimeField(
-        'data do serviço', default=timezone.now())
+        'data do serviço', default=timezone.now)
     valor = models.DecimalField(max_digits=5, decimal_places=2)
     pagamento = models.CharField('tipo de pagamento', max_length=50,
         choices=PAGAMENTO_CHOICES, default='aguardando')
@@ -131,7 +120,7 @@ class Despesa(TimestampedMixin):
     categorias = models.ManyToManyField('Categoria', blank=True)
     observacao = models.TextField('observação', null=True, blank=True)
     data_despesa = models.DateTimeField(
-        'data do pagamento', default=timezone.now())
+        'data do pagamento', default=timezone.now)
     valor = models.DecimalField(max_digits=5, decimal_places=2)
     pagamento = models.CharField('tipo de pagamento', max_length=50,
         choices=PAGAMENTO_CHOICES, default='aguardando')

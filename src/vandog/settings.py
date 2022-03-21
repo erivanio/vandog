@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'apps.clientes',
+    'apps.planos',
     'apps.financeiro',
 
     'django_extensions',
