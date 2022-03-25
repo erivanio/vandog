@@ -15,7 +15,7 @@ class PetInline(admin.StackedInline):
 
 @admin.register(Cliente)
 class ClienteAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'endereco', 'bairro', 'numero')
+    list_display = ('nome', 'endereco', 'bairro', 'pet_list')
     inlines = [TelefoneInline, PetInline]
     search_fields = ['nome', 'cpf']
 
@@ -28,6 +28,10 @@ class ClienteAdmin(admin.ModelAdmin):
         }),
     )
 
+    def pet_list(self, obj):
+        return u", ".join(o.nome for o in obj.pets.all())
+
+    pet_list.short_description = 'Pets'
 
 @admin.register(Telefone)
 class TelefoneAdmin(admin.ModelAdmin):
@@ -39,7 +43,7 @@ class TelefoneAdmin(admin.ModelAdmin):
 
 @admin.register(Pet)
 class PetAdmin(admin.ModelAdmin):
-    list_display = ('dono', 'nome', 'raca', 'porte', 'data_nascimento')
+    list_display = ('nome', 'dono', 'raca', 'porte', 'data_nascimento')
     list_filter = ('dono', 'porte')
     raw_id_fields = ('dono',)
     search_fields = ['dono__nome', 'dono__cpf', 'nome']

@@ -10,3 +10,5 @@ sqlparse==0.4.2
 whitenoise==5.3.0
 django-localflavor==2.2
 django-admin-rangefilter==0.8.4
+django-constance==2.5.0
+django-picklefield==2.0.0

@@ -1,6 +1,7 @@
 from decouple import config, Csv
 from pathlib import Path
 import os
+import decimal
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,6 +33,8 @@ INSTALLED_APPS = [
 
     'django_extensions',
     'rangefilter',
+    'constance',
+    'constance.backends.database',
 ]
 
 MIDDLEWARE = [
@@ -118,3 +121,12 @@ STATICFILES_DIRS = [
 FORCE_SCRIPT_NAME = config('FORCE_SCRIPT_NAME', default='')
 
 USE_X_FORWARDED_HOST = True
+
+# Constance
+
+CONSTANCE_CONFIG = {
+    'TAXA_DEBITO': (1.89, 'Taxa da maquininha na função débito'),
+    'TAXA_CREDITO': (4.89, 'Taxa da maquininha na função crédito'),
+}
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'

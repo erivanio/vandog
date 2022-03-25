@@ -4,7 +4,7 @@ from rangefilter.filters import DateTimeRangeFilter
 from .models import Plano, Aula
 
 
-class AulaInline(admin.StackedInline):
+class AulaInline(admin.TabularInline):
     model = Aula
     extra = 0
 
@@ -47,10 +47,12 @@ class PlanoaAdmin(admin.ModelAdmin):
         'pet',
         'periodo',
         'qtd_semana',
+        'mes_referencia',
     )
     list_filter = (
         'qtd_semana',
         'periodo',
+        'mes_referencia',
     )
     raw_id_fields = ('pet',)
     readonly_fields = ('created', 'modified')
@@ -62,7 +64,7 @@ class PlanoaAdmin(admin.ModelAdmin):
             'fields': ('pet',)
         }),
         ('Período', {
-            'fields': ('qtd_semana', 'periodo')
+            'fields': ('qtd_semana', 'periodo', 'mes_referencia')
         }),
         ('Controle', {
             'fields': ('created', 'modified')

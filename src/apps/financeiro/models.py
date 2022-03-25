@@ -1,8 +1,10 @@
 from django.db import models
 from django.utils import timezone
 from django.core.exceptions import ValidationError
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from constance import config
+from decimal import Decimal
 
 
 class TimestampedMixin(models.Model):
@@ -140,4 +142,14 @@ def debita_estoque(sender, instance, **kwargs):
         instance.item_estoque.quantidade -= instance.qtd_item
         instance.item_estoque.save()
 
+@receiver(pre_save, sender=Receita)
+def desconta_taxa(sender, instance, **kwargs):
+    if instance.pagamento == 'credito':
+        desconto = (instance.valor/100) * Decimal(config.TAXA_CREDITO)
+        instance.valor -= desconto
+    elif instance.pagamento == 'debito':
+        desconto = (instance.valor/100) * Decimal(config.TAXA_DEBITO)
+        instance.valor -= desconto
+
 post_save.connect(debita_estoque, sender=Receita)
+pre_save.connect(desconta_taxa, sender=Receita)
