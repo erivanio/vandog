@@ -1,6 +1,7 @@
 from django.db import models
 from apps.financeiro.models import TimestampedMixin
 from django.utils import timezone
+from datetime import date
 
 
 class Plano(TimestampedMixin):
@@ -17,28 +18,12 @@ class Plano(TimestampedMixin):
         ('meio', 'meio período'),
         ('integral', 'período integral'),
     ]
-    MESES_CHOICES = [
-        ('', 'Escolha um periodo'),
-        ('janeiro', 'Janeiro'),
-        ('fevereiro', 'fevereiro'),
-        ('março', 'Março'),
-        ('abril', 'Abril'),
-        ('maio', 'Maio'),
-        ('junho', 'Junho'),
-        ('julho', 'Julho'),
-        ('agosto', 'Agosto'),
-        ('setembro', 'Setembro'),
-        ('outubro', 'Outubro'),
-        ('novembro', 'Novembro'),
-        ('dezembro', 'Dezembro')
-    ]
     qtd_semana = models.CharField('Vezes por semana', max_length=50,
         choices=QUANTIDADE_CHOICES, null=True, blank=True)
     periodo = models.CharField('Período', max_length=50,
         choices=PERIODO_CHOICES, null=True, blank=True)
     pet = models.ForeignKey('clientes.Pet', on_delete=models.PROTECT)
-    mes_referencia = models.CharField('Mês referência', max_length=50,
-        choices=MESES_CHOICES, null=True, blank=True)
+    inicio = models.DateField('início', default=date.today)
     
     class Meta:
         verbose_name = 'Plano'

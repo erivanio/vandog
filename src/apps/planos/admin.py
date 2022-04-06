@@ -47,12 +47,12 @@ class PlanoaAdmin(admin.ModelAdmin):
         'pet',
         'periodo',
         'qtd_semana',
-        'mes_referencia',
+        'inicio',
     )
     list_filter = (
         'qtd_semana',
         'periodo',
-        'mes_referencia',
+        'inicio',
     )
     raw_id_fields = ('pet',)
     readonly_fields = ('created', 'modified')
@@ -64,7 +64,7 @@ class PlanoaAdmin(admin.ModelAdmin):
             'fields': ('pet',)
         }),
         ('Período', {
-            'fields': ('qtd_semana', 'periodo', 'mes_referencia')
+            'fields': ('qtd_semana', 'periodo', 'inicio')
         }),
         ('Controle', {
             'fields': ('created', 'modified')
