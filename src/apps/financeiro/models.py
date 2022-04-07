@@ -60,11 +60,11 @@ class Receita(TimestampedMixin):
     qtd_item = models.IntegerField('Quantidade de itens', default=0,
         help_text="Referente aos itens em estoque que foram vendidos")
     cliente = models.ForeignKey('clientes.Cliente', on_delete=models.PROTECT)
-    pets = models.ManyToManyField('clientes.Pet')
+    pets = models.ManyToManyField('clientes.Pet', null=True, blank=True)
     observacao = models.TextField('observação', null=True, blank=True)
     data_servico = models.DateTimeField(
         'data do serviço', default=timezone.now)
-    valor = models.DecimalField(max_digits=5, decimal_places=2)
+    valor = models.DecimalField(max_digits=6, decimal_places=2)
     pagamento = models.CharField('tipo de pagamento', max_length=50,
         choices=PAGAMENTO_CHOICES, default='aguardando')
 
@@ -123,7 +123,7 @@ class Despesa(TimestampedMixin):
     observacao = models.TextField('observação', null=True, blank=True)
     data_despesa = models.DateTimeField(
         'data do pagamento', default=timezone.now)
-    valor = models.DecimalField(max_digits=5, decimal_places=2)
+    valor = models.DecimalField(max_digits=6, decimal_places=2)
     pagamento = models.CharField('tipo de pagamento', max_length=50,
         choices=PAGAMENTO_CHOICES, default='aguardando')
     parcelas = models.IntegerField(default=1)

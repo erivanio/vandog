@@ -36,7 +36,7 @@ class ReceitaAdmin(admin.ModelAdmin):
         'data_servico',
 
     )
-    raw_id_fields = ('cliente', 'pets')
+    raw_id_fields = ('cliente', 'pets', 'plano', 'aula', 'item_estoque',)
     readonly_fields = ('created', 'modified')
     list_filter = (
         ('data_servico', DateTimeRangeFilter),
