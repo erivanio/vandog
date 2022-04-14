@@ -27,12 +27,4 @@ class Migration(migrations.Migration):
             field=models.DateField(default=datetime.date.today, verbose_name='data da aula'),
         ),
         migrations.RunPython(datetime_to_date),
-        migrations.RemoveField(
-            model_name='aula',
-            name='entrada',
-        ),
-        migrations.RemoveField(
-            model_name='aula',
-            name='saida',
-        ),
     ]
