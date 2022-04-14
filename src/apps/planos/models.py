@@ -1,7 +1,8 @@
 from django.db import models
 from apps.financeiro.models import TimestampedMixin
-from django.utils import timezone
 from datetime import date
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 
 class Plano(TimestampedMixin):
@@ -54,3 +55,11 @@ class Aula(TimestampedMixin):
 
     def __str__(self):
         return '%s(%s)' % (self.pet.nome, self.pet.dono.nome)
+
+
+@receiver(pre_save, sender=Aula)
+def seleciona_plano_pet(sender, instance, **kwargs):
+    if instance.plano:
+        instance.pet = instance.plano.pet
+
+pre_save.connect(seleciona_plano_pet, sender=Aula)

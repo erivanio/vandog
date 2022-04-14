@@ -7,7 +7,7 @@ from .models import Plano, Aula
 class AulaInline(admin.TabularInline):
     model = Aula
     extra = 0
-    exclude = ['avaliacao',]
+    exclude = ['avaliacao', 'pet']
     raw_id_fields = ('pet',)
 
 
@@ -48,6 +48,8 @@ class PlanoaAdmin(admin.ModelAdmin):
         'periodo',
         'qtd_semana',
         'inicio',
+        'aulas_feitas_count',
+        'aulas_restantes_count',
     )
     list_filter = (
         ('inicio', DateRangeFilter),
@@ -70,3 +72,11 @@ class PlanoaAdmin(admin.ModelAdmin):
             'fields': ('created', 'modified')
         }),
     )
+    
+    def aulas_feitas_count(self, obj):
+        return obj.aula_set.count()
+    aulas_feitas_count.short_description = "Aulas feitas"
+    
+    def aulas_restantes_count(self, obj):
+        return int(obj.qtd_semana)*4 - obj.aula_set.count()
+    aulas_restantes_count.short_description = "Aulas Restantes"
