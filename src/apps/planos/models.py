@@ -46,10 +46,7 @@ class Aula(TimestampedMixin):
     avaliacao = models.BooleanField('avaliação', default=False)
     periodo = models.CharField('período da aula', max_length=50,
         choices=PERIODO_CHOICES, null=True, blank=True)
-    entrada = models.DateTimeField(
-        'entrada', default=timezone.now)
-    saida = models.DateTimeField(
-        'saida', default=timezone.now)
+    data_aula = models.DateField('data da aula', default=date.today)
     
     class Meta:
         verbose_name = 'Aula'

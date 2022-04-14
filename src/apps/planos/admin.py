@@ -1,5 +1,5 @@
 from django.contrib import admin
-from rangefilter.filters import DateTimeRangeFilter
+from rangefilter.filters import DateRangeFilter
 
 from .models import Plano, Aula
 
@@ -7,6 +7,8 @@ from .models import Plano, Aula
 class AulaInline(admin.TabularInline):
     model = Aula
     extra = 0
+    exclude = ['avaliacao',]
+    raw_id_fields = ('pet',)
 
 
 @admin.register(Aula)
@@ -15,12 +17,10 @@ class AulaAdmin(admin.ModelAdmin):
         'pet',
         'plano',
         'avaliacao',
-        'entrada',
-        'saida',
+        'data_aula',
     )
     list_filter = (
-        ('entrada', DateTimeRangeFilter),
-        ('saida', DateTimeRangeFilter),
+        ('data_aula', DateRangeFilter),
         'periodo',
         'avaliacao',
     )
@@ -33,7 +33,7 @@ class AulaAdmin(admin.ModelAdmin):
             'fields': ('pet',)
         }),
         ('Período', {
-            'fields': ('avaliacao', 'plano', 'periodo','entrada', 'saida')
+            'fields': ('avaliacao', 'plano', 'periodo', 'data_aula')
         }),
         ('Controle', {
             'fields': ('created', 'modified')
@@ -50,9 +50,9 @@ class PlanoaAdmin(admin.ModelAdmin):
         'inicio',
     )
     list_filter = (
+        ('inicio', DateRangeFilter),
         'qtd_semana',
         'periodo',
-        'inicio',
     )
     raw_id_fields = ('pet',)
     readonly_fields = ('created', 'modified')
